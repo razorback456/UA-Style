@@ -7,9 +7,9 @@ function api_post(path, payload, callback) {
 }
 
 function when_loaded() {
-    api_post("/style-editor/check-api/", {}, function(x) { console.log( "Style Editor Check API", x['value'] )});
+    api_post("/UAstyle/check-api/", {}, function(x) { console.log( "UAStyle Check API", x['value'] )});
     globalThis.selectedRows = [];
-    grid = document.getElementById('style_editor_grid');
+    grid = document.getElementById('UAstyle_grid');
     grid.addEventListener('keydown', function(event){
         // if a key is pressed in a TD which has an INPUT child, or an INPUT, this is typing in a cell, allow it
         if (event.target.tagName === 'TD' && event.target.querySelector("input")) { return; }
@@ -35,11 +35,11 @@ function when_loaded() {
             new_prefix = prompt("Move to style file:", "");
             if (new_prefix != null) { 
                 globalThis.selectedRows.forEach( function(row) { 
-                    api_post("/style-editor/move-style", 
+                    api_post("/UAstyle/move-style", 
                             {"style":{"value":row_style_name(row)}, "new_prefix":{"value":new_prefix}}, 
                             function(x){} );    
                 });
-                document.getElementById("style_editor_handle_api").click();
+                document.getElementById("UAstyle_handle_api").click();
                 unselect_rows();
             }
         }
@@ -47,11 +47,11 @@ function when_loaded() {
         // if D is pressed, duplicate the selected styles
         if (event.key === "d" && globalThis.selectedRows.length > 0) {
             globalThis.selectedRows.forEach( function(row) { 
-                api_post("/style-editor/duplicate-style", 
+                api_post("/UAstyle/duplicate-style", 
                         {"value":row_style_name(row)},
                         function(x){} );    
             });
-            document.getElementById("style_editor_handle_api").click();
+            document.getElementById("UAstyle_handle_api").click();
             unselect_rows();
         }
 
@@ -59,11 +59,11 @@ function when_loaded() {
         if (event.key === "Backspace" || event.key === "Delete") { 
             if (globalThis.selectedRows.length > 0) {
                 globalThis.selectedRows.forEach( function(row) { 
-                    api_post("/style-editor/delete-style", 
+                    api_post("/UAstyle/delete-style", 
                             {"value":row_style_name(row)}, 
                             function(x){} );    
                 });
-                document.getElementById("style_editor_handle_api").click();
+                document.getElementById("UAstyle_handle_api").click();
             } else {
                 update(event.target,"");
             }
@@ -112,11 +112,11 @@ function press_refresh_button(tab) {
 }
 
 function update(target, text) { 
-    // Update the cell in such a way as to get the backend to notice...
-    // - generate a double click on the original target
-    // - wait 10ms to make sure it has happened, then:
-    //   - paste the text into the input that has been created
-    //   - send a 'return' keydown event through the input
+ // Оновіть клітинку таким чином, щоб серверна частина помітила...
+// - генерувати подвійне клацання на вихідній цілі
+// - зачекайте 10 мс, щоб переконатися, що це сталося, потім:
+// - вставити текст у створений вхід
+// - надсилати подію 'return' keydown через вхід
     const dblclk = new MouseEvent("dblclick", {"bubbles":true, "cancelable":true});
     target.dispatchEvent(dblclk);
     setTimeout( function() {
@@ -131,7 +131,7 @@ function update(target, text) {
 }
 
 function encryption_change(value) {
-    accordian_style = document.getElementById('style_editor_encryption_accordian').style;
+    accordian_style = document.getElementById('UAstyle_encryption_accordian').style;
     if (value) {
         accordian_style.color = "#f88";
     } else {
@@ -142,7 +142,7 @@ function encryption_change(value) {
 
 function filter_style_list(filter_text, type) {
     if (type=="regex") { 
-        filter = document.getElementById('style_editor_filter').firstElementChild.lastElementChild;
+        filter = document.getElementById('UAstyle_filter').firstElementChild.lastElementChild;
         try {
             re = new RegExp(filter_text);
             filter.style.color="white";
@@ -152,13 +152,13 @@ function filter_style_list(filter_text, type) {
             filter.style.color="red";
         } 
     }
-    accordian_style = document.getElementById('style_editor_filter_accordian').style;
+    accordian_style = document.getElementById('UAstyle_filter_accordian').style;
     if (filter_text==="") {
         accordian_style.color = "white";
     } else {
         accordian_style.color = "#f88";
     }
-    rows = document.getElementById('style_editor_grid').querySelectorAll("tr");
+    rows = document.getElementById('UAstyle_grid').querySelectorAll("tr");
     header = true;
     for (row of rows) {
         vis = false;
