@@ -36,11 +36,11 @@ class Additionals:
   @staticmethod
   def prefixed_style(maybe_prefixed_style: str, current_prefix:str, force=False):
     """
-    If force is False:
-      If it has a prefix, return it. 
-      If not, use the one specified. If that is None or '', no prefix
-    If force is True:
-      use the prefix specified
+    Якщо сила невірна:
+Якщо він має префікс, поверніть його.
+Якщо ні, використовуйте вказаний. Якщо це None або '', без префікса
+Якщо сила істина:
+використовувати вказаний префікс
     """
     prefix, style = Additionals.split_stylename(maybe_prefixed_style)
     prefix = current_prefix if force else (prefix or current_prefix) 
@@ -61,8 +61,8 @@ class Additionals:
   @classmethod 
   def display_name(cls, filename:str) -> str:
     """
-    Return the full path for an additional style file. 
-    Input can be the full path, the filename with extension, or the filename without extension
+Поверніть повний шлях для додаткового файлу стилю.
+    Введенням може бути повний шлях, ім’я файлу з розширенням або ім’я файлу без розширення
     """
     fullpath = cls.full_path(filename)
     return os.path.splitext(os.path.split(fullpath)[1])[0] if fullpath!=cls.default_style_file_path else ''
