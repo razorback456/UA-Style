@@ -2,12 +2,12 @@ import time, threading
 
 class Background:
   """
-  A simple background task manager that considers doing a background task every n seconds. 
-  The task is only done if the manager has been marked as pending.
+ Простий диспетчер фонових завдань, який розглядає виконання фонового завдання кожні n секунд.
+Завдання виконується, лише якщо менеджера позначено як очікує на розгляд.
   """
   def __init__(self, method, sleeptime) -> None:
     """
-    Create a manager that will consider calling `method` every `sleeptime` seconds
+   Створіть менеджера, який розглядатиме виклик `method` кожні `sleeptime` секундиw
     """
     self.method = method
     self.sleeptime = sleeptime
@@ -17,7 +17,7 @@ class Background:
 
   def start(self):
     """
-    Start the manager's thread
+    Запустіть потік менеджера
     """
     with self.lock:
       if not self._started:
@@ -26,7 +26,7 @@ class Background:
 
   def set_pending(self, pending=True):
     """
-    Set the task as pending. Next time the manager checks it will call `method` and then unset pending.
+   Встановити завдання як очікуване. Наступного разу, коли менеджер перевірить, він викличе `method`, а потім скасує очікування.
     """
     with self.lock:
         self._pending = pending
