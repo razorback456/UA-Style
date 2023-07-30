@@ -34,7 +34,7 @@ class ParameterString(BaseModel):
 class ParameterBool(BaseModel):
   value: bool
 
-class StyleEditor:
+class UAStyle:
   update_help = """# Recent changes:
 ## Changed in this update:
 - Make mac command key work for cut, copy, paste
@@ -289,5 +289,5 @@ class StyleEditor:
               if tab.id=="txt2img" or tab.id=="img2img":
                 tab.select(fn=None, inputs=tab, _js="press_refresh_button")
 
-script_callbacks.on_ui_tabs(StyleEditor.on_ui_tabs)
-script_callbacks.on_app_started(StyleEditor.on_app_started)
+script_callbacks.on_ui_tabs(UAStyle.on_ui_tabs)
+script_callbacks.on_app_started(UAStyle.on_app_started)
