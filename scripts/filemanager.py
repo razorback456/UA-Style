@@ -1,5 +1,4 @@
-# A bunch of utility methods to load and save style files
-import pandas as pd
+# Купа службових методів для завантаження та збереження файлів стилів
 import numpy as np
 import os, json
 from typing import Dict
@@ -97,7 +96,7 @@ class FileManager:
   @classmethod
   def clear_style_cache(cls):
     """
-    Drop all loaded styles
+ Відкинути всі завантажені стилі
     """
     cls.loaded_styles = {}
 
@@ -112,8 +111,8 @@ class FileManager:
   @classmethod
   def get_styles(cls, prefix='') -> pd.DataFrame:
     """
-    If prefix is '', this is the default style file.
-    Load or retrieve from cache
+ Якщо префікс '', це файл стилю за замовчуванням.
+Завантажити або отримати з кешу
     """
     if not prefix in cls.loaded_styles:
       cls.loaded_styles[prefix] = StyleFile(prefix)
