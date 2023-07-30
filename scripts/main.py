@@ -20,7 +20,7 @@ class Script(scripts.Script):
     super().__init__()
 
   def title(self):
-    return "Style Editor"
+    return "UAStyle"
 
   def show(self, is_img2img):
     return scripts.AlwaysVisible
@@ -35,25 +35,25 @@ class ParameterBool(BaseModel):
   value: bool
 
 class UAStyle:
-  update_help = """# Recent changes:
-## Changed in this update:
-- Make mac command key work for cut, copy, paste
-- Fix delete of cell when no row selected
-- Cmd / Ctrl / Right -click all select multiple rows
-- `D` to duplicate selected row
+  update_help = """# Останні зміни:
+## Змінено в цьому оновленні:
+- Змусити командну клавішу Mac працювати для вирізання, копіювання, вставлення
+— Виправлено видалення комірки, коли рядок не вибрано
+- Cmd / Ctrl / Клацніть правою кнопкою миші все, виберіть кілька рядків
+- `D`, щоб дублювати вибраний рядок
 
-## Changed in recent updates:
-- Allow backups to be downloaded
-- Show backups in the `restore from backup` section
-- Automatically merge styles when changing away from this tab
-- Select row(s) then press `M` to move them
-- Ctrl-right-click to select multiple rows
+## Змінено в останніх оновленнях:
+- Дозволити завантаження резервних копій
+- Показати резервні копії в розділі «відновити з резервної копії».
+- Автоматично об'єднувати стилі під час переходу з цієї вкладки
+- Виберіть рядок(и), а потім натисніть `M`, щоб перемістити його
+- Ctrl-клацніть правою кнопкою миші, щоб вибрати кілька рядків
 
 """
-  brief_guide = """Click to select cell. Dbl-click to edit cell. Cmd-, Ctrl-, ⌘- or right-click to select rows.
+  brief_guide = """Натисніть, щоб вибрати клітинку. Двічі клацніть, щоб редагувати клітинку. Cmd-, Ctrl-, ⌘- або клацніть правою кнопкою миші, щоб вибрати рядки.
 
-`Backspace/Delete` to clear selected cell/delete row(s). Ctrl- or ⌘- `X` `C` `V` cut copy or paste selected cell (not row).
-`M` to move selected row(s). `D` to duplicate selected row(s)"""
+`Backspace/Delete`, щоб очистити вибрану клітинку/видалити рядок(и). Ctrl- або ⌘- `X` `C` `V` вирізати, скопіювати або вставити вибрану клітинку (не рядок).
+`M`, щоб перемістити вибрані рядки. `D`, щоб дублювати вибрані рядки"""
   backup = Background(FileManager.do_backup, 600)
   api_calls_outstanding = []
   api_lock = threading.Lock()
@@ -247,7 +247,7 @@ class UAStyle:
 
       cls.do_api.click(fn=cls.handle_outstanding_api_calls,outputs=cls.dataeditor)
 
-    return [(style_editor, "Style Editor", "style_editor")]
+    return [(style_editor, "UAStyle", "style_editor")]
 
   @classmethod
   def on_app_started(cls, block:gr.Blocks, api:FastAPI):
